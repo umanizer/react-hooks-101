@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const App = (props) => {
   const [state, setState] = useState(props);
-  const {name,price} = state
-  // const [name, setName] = useState(props.name);
-  // const [price, setPrice] = useState(props.price);
+  const { name, price } = state;
+
+  useEffect(() => {
+    console.log("useEffect is");
+  },[price]);
 
 
   return (
@@ -18,7 +20,7 @@ const App = (props) => {
       <button onClick={() => setState({ ...state, price: price - 1 })}>
         -1
       </button>
-      <button onClick={()=>setState(props)}>Reset</button>
+      <button onClick={() => setState(props)}>Reset</button>
       <input
         value={name}
         onChange={(e) =>
