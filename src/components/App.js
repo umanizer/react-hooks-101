@@ -1,6 +1,7 @@
 import React, { useState, useReducer } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import Event from "../components/Event"
 import reducer from "../reducers/index";
 
 const App = () => {
@@ -11,12 +12,15 @@ const App = () => {
 
   const addEvent = (e) => {
     e.preventDefault();
-    dispatch({type:"CREATE_EVENT",title,body})
-    setBody("")
-    setTitle("")
+    dispatch({ type: "CREATE_EVENT", title, body });
+    setBody("");
+    setTitle("");
   };
 
-  console.log(state)
+  const allClear = (e) => {
+    e.preventDefault();
+    dispatch({ type: "DELETE_ALL_EVENTS" });
+  };
 
   return (
     <div className="container-fluid">
@@ -24,16 +28,30 @@ const App = () => {
       <form>
         <div className="form-group">
           <label htmlFor="formEventTitle">タイトル</label>
-          <input type="text" className="form-control" id="formEventTitle" value={title} onChange={(e)=>setTitle(e.target.value)}/>
+          <input
+            type="text"
+            className="form-control"
+            id="formEventTitle"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
         </div>
         <div className="form-group">
           <label htmlFor="formEventBody">ボディー</label>
-          <textarea type="text" className="form-control" id="formEventBody" value={body} onChange={(e)=>setBody(e.target.value)}/>
+          <textarea
+            type="text"
+            className="form-control"
+            id="formEventBody"
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+          />
         </div>
         <button className="btn btn-primary " onClick={addEvent}>
           イベントを作成する
         </button>
-        <button className="btn btn-danger">全てのイベントを削除する</button>
+        <button className="btn btn-danger" onClick={allClear}>
+          全てのイベントを削除する
+        </button>
       </form>
       <h4>イベント一覧</h4>
       <table className="table table-hover">
@@ -45,7 +63,10 @@ const App = () => {
             <th></th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          {state.map(event => (<Event key={event.id} event={event} dispatch={dispatch}/>))}
+
+        </tbody>
       </table>
     </div>
   );
