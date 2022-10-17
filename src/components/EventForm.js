@@ -3,10 +3,10 @@ import { CREATE_EVENT,DELETE_ALL_EVENTS } from "../actions";
 import AppContext from "../contexts/AppContext";
 
 const EventForm = () => {
+  const { state, dispatch } = useContext(AppContext);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
-  const { state, dispatch } = useContext(AppContext);
 
   const addEvent = (e) => {
     e.preventDefault();
@@ -15,12 +15,13 @@ const EventForm = () => {
     setTitle("");
   };
 
-  const deleteALLEvents = (e) => {
+  const deleteAllEvents = (e) => {
     e.preventDefault();
     const result = window.confirm(
       "全てのイベントを本当に削除しても良いですか？"
     );
     if (result) dispatch({ type: DELETE_ALL_EVENTS });
+
   };
   return (
     <>
@@ -55,8 +56,8 @@ const EventForm = () => {
         </button>
         <button
           className="btn btn-danger"
-          onClick={deleteALLEvents}
-          disabled={state.length === 0}
+          onClick={deleteAllEvents}
+          disabled={state.events.length === 0}
         >
           全てのイベントを削除する
         </button>
