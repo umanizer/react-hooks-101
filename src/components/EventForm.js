@@ -28,7 +28,7 @@ const EventForm = () => {
     );
     if (result) {
       dispatch({ type: DELETE_ALL_EVENTS });
-      dispatch({type:ADD_OPERATION_LOG,description:"全てのイベントを削除しました。",operatedAt:timeCurrentIso8601})
+      dispatch({type:ADD_OPERATION_LOG,description:"全てのイベントを削除しました。",operatedAt:timeCurrentIso8601()})
     }
   };
 
