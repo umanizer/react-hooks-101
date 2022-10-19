@@ -1,7 +1,8 @@
-import { ADD_OPERATION_LOG,DELETE_ALL_EVENTS } from "../actions";
+import { ADD_OPERATION_LOG,DELETE_ALL_OPERATION_LOGS } from "../actions";
 
 
 const operationLogs = (state=[],action) =>{
+  console.log(action)
   switch(action.type) {
     case ADD_OPERATION_LOG:
         const operationLog ={
@@ -9,7 +10,7 @@ const operationLogs = (state=[],action) =>{
           operatedAt:action.operatedAt,
         }
       return [operationLog,...state]
-    case DELETE_ALL_EVENTS:
+    case DELETE_ALL_OPERATION_LOGS:
       return []
     default:
       return state
